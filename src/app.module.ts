@@ -8,11 +8,10 @@ import { NetworkModule } from './network/network.module';
 import { GeneralModule } from './general/general.module';
 import { PerformanceModule } from './performance/performance.module';
 import { ShellModule } from './shell/shell.module';
-import { CommunicationModule } from './communication/communication.module';
-import { SocketModule } from './socket/socket.module';
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     GeneralModule,
     NetworkModule,
     ServeStaticModule.forRoot({
@@ -22,8 +21,6 @@ import { SocketModule } from './socket/socket.module';
     MqttModule,
     PerformanceModule,
     ShellModule,
-    CommunicationModule,
-    SocketModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -21,12 +21,17 @@ export class DiscoveryService {
     console.log('discovery init');
     this.client = dgram.createSocket('udp4');
     this.client.on('message', this.onMessage.bind(this));
-    this.client.on('listening', () => {
-      this.client.setBroadcast(true);
-    });
-    this.client.bind(5555);
+    this.client.addMembership(process.env.MULTICAST_ADDRESS);
+
+    // this.client.on('listening', () => {
+    //  // this.client.setBroadcast(true);
+    //   this.client.addMembership(process.env.MULTICAST_ADDRESS);
+
+    // });
+    // this.client.bind(5555);
   }
   async onMessage(message, rinfo) {
+    console.log(message)
     const payload = await this.networkStatus();
     this.client.send(
       JSON.stringify(payload),
